@@ -1,6 +1,6 @@
-package ssn
+package no.howie.common.ssn
 
-import no.howie.ssn.IndividualNumber
+import no.howie.common.ssn.IndividualNumber
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 

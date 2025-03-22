@@ -1,5 +1,3 @@
-package no.howie
-
 enum class Gender {
     Male,
     Female;

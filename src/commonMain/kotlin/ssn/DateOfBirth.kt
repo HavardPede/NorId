@@ -1,6 +1,6 @@
-package no.howie.ssn
+package no.howie.common.ssn
 
-import no.howie.Gender
+import Gender
 import java.util.Calendar
 
 class DateOfBirth(val day: Int, val month: Int, val year: Int) {

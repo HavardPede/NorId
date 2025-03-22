@@ -1,9 +1,6 @@
-package ssn
+package no.howie.common.ssn
 
-import no.howie.Gender
-import no.howie.ssn.MAX_SUPPORTED_YEAR
-import no.howie.ssn.MIN_SUPPORTED_YEAR
-import no.howie.ssn.Ssn
+import Gender
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest

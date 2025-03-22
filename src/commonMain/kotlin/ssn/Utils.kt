@@ -1,4 +1,4 @@
-package no.howie.ssn
+package no.howie.common.ssn
 
 import java.util.Calendar
 

@@ -1,6 +1,6 @@
-package no.howie.ssn
+package no.howie.common.ssn
 
-import no.howie.Gender
+import Gender
 import java.lang.Integer.parseInt
 
 class IndividualNumber(private val value: String, private val yearOfBirth: Int) {

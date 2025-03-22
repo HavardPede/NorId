@@ -1,15 +1,10 @@
-package ssn
+package no.howie.common.ssn
 
-import no.howie.ssn.ControlDigits
-import no.howie.ssn.ControlDigits.Companion.firstDigit
-import no.howie.ssn.ControlDigits.Companion.secondDigit
-import no.howie.ssn.DateOfBirth
-import no.howie.ssn.IndividualNumber
-import org.junit.jupiter.api.Assertions.assertTrue
+import no.howie.common.ssn.ControlDigits.Companion.firstDigit
+import no.howie.common.ssn.ControlDigits.Companion.secondDigit
 import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import kotlin.test.Test
+import kotlin.jvm.JvmStatic
 import kotlin.test.assertEquals
 
 class ControlDigitsTest {
@@ -56,7 +51,7 @@ class ControlDigitsTest {
         val individualNumber = IndividualNumber.fromSsn(ssn)
         val controlDigits = ControlDigits.fromSsn(ssn)
 
-        assertTrue(controlDigits.isValidFor(dateOfBirth, individualNumber), "Invalid control digits for SSN: $ssn")
+        assertEquals(true, controlDigits.isValidFor(dateOfBirth, individualNumber), "Invalid control digits for SSN: $ssn")
     }
 
     @ParameterizedTest

@@ -1,4 +1,4 @@
-package no.howie.ssn
+package no.howie.common.ssn
 
 
 class ControlDigits(private val digits: String) {

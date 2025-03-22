@@ -1,6 +1,5 @@
-package ssn
+package no.howie.common.ssn
 
-import no.howie.ssn.padZeroes
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

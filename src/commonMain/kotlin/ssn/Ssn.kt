@@ -1,6 +1,6 @@
-package no.howie.ssn
+package no.howie.common.ssn
 
-import no.howie.Gender
+import Gender
 
 class Ssn(private val value: String) {
     internal var dateOfBirth = DateOfBirth.fromSsn(value)

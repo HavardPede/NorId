@@ -1,4 +1,5 @@
-package no.howie.ssn
+import no.howie.common.ssn.Ssn
+
 
 fun isValidSsn(ssn: String): Boolean {
     try {

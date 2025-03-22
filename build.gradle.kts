@@ -1,5 +1,8 @@
+import org.gradle.kotlin.dsl.kotlin
+
 plugins {
-    kotlin("jvm") version "2.1.10"
+    kotlin("multiplatform") version "2.1.20"
+    `maven-publish`
 }
 
 group = "no.howie"
@@ -9,17 +12,23 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.junit.jupiter:junit-jupiter-params")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
 kotlin {
-    jvmToolchain(17)
+    jvm {
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
+    }
+
+    sourceSets {
+        commonMain
+        commonTest {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit5"))
+                implementation("org.junit.jupiter:junit-jupiter-api")
+                implementation("org.junit.jupiter:junit-jupiter-params")
+                runtimeOnly("org.junit.jupiter:junit-jupiter-engine")
+            }
+        }
+    }
 }
