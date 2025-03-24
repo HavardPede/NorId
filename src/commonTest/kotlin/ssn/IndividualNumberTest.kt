@@ -1,8 +1,7 @@
 package no.howie.common.ssn
 
-import no.howie.common.ssn.IndividualNumber
-import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class IndividualNumberTest {
     @Test

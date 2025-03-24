@@ -1,10 +1,9 @@
 package no.howie.common.ssn
 
 import Gender
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.MethodSource
+import kotlin.jvm.JvmStatic
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class SsnTest {
 
@@ -12,7 +11,6 @@ class SsnTest {
         const val MALE = "05079426778"
         const val FEMALE = "05079426697"
         @JvmStatic fun years() = MIN_SUPPORTED_YEAR..MAX_SUPPORTED_YEAR
-        @JvmStatic fun ages() = 0..169
     }
 
     @Test
@@ -37,12 +35,13 @@ class SsnTest {
         assertEquals(Gender.Female, Ssn(FEMALE).gender())
     }
 
-    @ParameterizedTest
-    @MethodSource("years")
-    fun forYear(year: Int) {
-        var ssn = Ssn.forYear(year)
-        assertEquals(year, ssn.dateOfBirth.year)
-        assertEquals(Gender.Female, ssn.gender())
+    @Test
+    fun forYear() {
+        years().forEach { year ->
+            var ssn = Ssn.forYear(year)
+            assertEquals(year, ssn.dateOfBirth.year)
+            assertEquals(Gender.Female, ssn.gender(), "invalid gender for ssn $ssn")
+        }
     }
 
     @Test
@@ -51,12 +50,13 @@ class SsnTest {
         assertEquals(Gender.Male, ssn.gender())
     }
 
-    @ParameterizedTest
-    @MethodSource("ages")
-    fun forAge(age: Int) {
-        var ssn = Ssn.forAge(age)
-        assertEquals(age, ssn.age())
-        assertEquals(Gender.Female, ssn.gender())
+    @Test
+    fun forAge() {
+        (0..169).forEach { age ->
+            var ssn = Ssn.forAge(age)
+            assertEquals(age, ssn.age(), "invalid age for ssn $ssn")
+            assertEquals(Gender.Female, ssn.gender(), "invalid gender for ssn $ssn")
+        }
     }
 
     @Test

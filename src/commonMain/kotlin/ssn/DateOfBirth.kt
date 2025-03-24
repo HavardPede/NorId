@@ -1,7 +1,10 @@
 package no.howie.common.ssn
 
 import Gender
-import java.util.Calendar
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.daysUntil
+import kotlinx.datetime.plus
 
 class DateOfBirth(val day: Int, val month: Int, val year: Int) {
 
@@ -13,9 +16,7 @@ class DateOfBirth(val day: Int, val month: Int, val year: Int) {
 
 
     fun age(): Int {
-        val calendar = Calendar.getInstance()
-        val currentYear = calendar[Calendar.YEAR]
-        var age = currentYear - year
+        var age = now().year - year
         if (isOneYearTooOld(day, month)) age--
 
         return age
@@ -34,8 +35,6 @@ class DateOfBirth(val day: Int, val month: Int, val year: Int) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
         other as DateOfBirth
 
         if (day != other.day) return false
@@ -86,13 +85,19 @@ class DateOfBirth(val day: Int, val month: Int, val year: Int) {
         }
 
         private fun getDayOfMonth(year: Int, month: Int): Int {
-            val maxDayOfMonth = Calendar.getInstance().apply { set(year, month - 1, 1) }.getActualMaximum(Calendar.DAY_OF_MONTH)
+            val maxDayOfMonth = getNumberOfDaysInMonth(year, month)
             return (1..maxDayOfMonth).random()
         }
 
+        fun getNumberOfDaysInMonth(year: Int, month: Int): Int {
+            val start = LocalDate(year, month, 1)
+            val end = start.plus(1, DateTimeUnit.MONTH)
+            return start.daysUntil(end)
+        }
+
         private fun isOneYearTooOld(day: Int, month: Int): Boolean {
-            var currentMonth = Calendar.getInstance()[Calendar.MONTH] + 1
-            var currentDay = Calendar.getInstance()[Calendar.DAY_OF_MONTH]
+            var currentMonth = now().monthNumber
+            var currentDay = now().dayOfMonth
             return month > currentMonth || (month == currentMonth && currentDay < day)
         }
     }

@@ -2,9 +2,8 @@ package no.howie.common.ssn
 
 import no.howie.common.ssn.ControlDigits.Companion.firstDigit
 import no.howie.common.ssn.ControlDigits.Companion.secondDigit
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.MethodSource
 import kotlin.jvm.JvmStatic
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ControlDigitsTest {
@@ -44,23 +43,25 @@ class ControlDigitsTest {
         )
     }
 
-    @ParameterizedTest
-    @MethodSource("ssnProvider")
-    fun validateControlDigits(ssn: String) {
-        val dateOfBirth = DateOfBirth.fromSsn(ssn)
-        val individualNumber = IndividualNumber.fromSsn(ssn)
-        val controlDigits = ControlDigits.fromSsn(ssn)
+    @Test
+    fun validateControlDigits() {
+        ssnProvider().forEach { ssn ->
+            val dateOfBirth = DateOfBirth.fromSsn(ssn)
+            val individualNumber = IndividualNumber.fromSsn(ssn)
+            val controlDigits = ControlDigits.fromSsn(ssn)
 
-        assertEquals(true, controlDigits.isValidFor(dateOfBirth, individualNumber), "Invalid control digits for SSN: $ssn")
+            assertEquals(true, controlDigits.isValidFor(dateOfBirth, individualNumber), "Invalid control digits for SSN: $ssn")
+        }
     }
 
-    @ParameterizedTest
-    @MethodSource("ssnProvider")
-    fun controlDigits(ssn: String) {
-        val nineFirstDigits = ssn.substring(0, 9)
-        var first = firstDigit(nineFirstDigits.substring(0, 6), nineFirstDigits.substring(6, 9))
-        var second = secondDigit(nineFirstDigits.substring(0, 6), nineFirstDigits.substring(6, 9), first)
-        assertEquals(ssn.substring(9, 10), first.toString())
-        assertEquals(ssn.substring(10, 11), second.toString())
+    @Test
+    fun controlDigits() {
+        ssnProvider().forEach { ssn ->
+            val nineFirstDigits = ssn.substring(0, 9)
+            var first = firstDigit(nineFirstDigits.substring(0, 6), nineFirstDigits.substring(6, 9))
+            var second = secondDigit(nineFirstDigits.substring(0, 6), nineFirstDigits.substring(6, 9), first)
+            assertEquals(ssn.substring(9, 10), first.toString(), "First control digit for SSN: $ssn")
+            assertEquals(ssn.substring(10, 11), second.toString(), "Second control digit for SSN: $ssn")
+        }
     }
 }

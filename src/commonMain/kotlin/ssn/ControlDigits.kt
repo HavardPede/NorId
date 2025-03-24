@@ -10,14 +10,18 @@ class ControlDigits(private val digits: String) {
         return equals(of(dob, individualNumber))
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return digits == (other as ControlDigits).digits
-    }
+
 
     override fun toString() = digits.toString()
     override fun hashCode() = digits.hashCode()
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as ControlDigits
+
+        return digits == other.digits
+    }
 
     companion object {
         val FIRST_DIGIT_WEIGHTS = intArrayOf(3, 7, 6, 1, 8, 9, 4, 5, 2)

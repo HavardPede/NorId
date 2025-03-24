@@ -16,7 +16,6 @@ class Ssn(private val value: String) {
     fun dateOfBirth() = dateOfBirth.toString()
     fun age() = dateOfBirth.age()
 
-    @Override
     override fun toString() = value
 
     companion object {

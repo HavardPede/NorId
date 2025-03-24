@@ -1,10 +1,10 @@
 package no.howie.common.ssn
 
 import Gender
-import java.lang.Integer.parseInt
+import kotlin.random.Random
 
 class IndividualNumber(private val value: String, private val yearOfBirth: Int) {
-    private val valueAsInt: Int = parseInt(value)
+    private val valueAsInt: Int = value.toInt()
     init {
         require(value.length == 3 && value.all { it.isDigit() }) { "Individual number must be 3 digits long" }
     }
@@ -36,7 +36,7 @@ class IndividualNumber(private val value: String, private val yearOfBirth: Int) 
         }
 
         private fun randomIndividualValue(lower: Int, upper: Int, gender: Gender): String {
-            var value = (Math.random() * (upper - lower)).toInt() + lower
+            var value = (Random.nextInt(lower, upper))
             if (Gender.fromIndividualNumber(value) != gender) value++
             return padZeroes(value, numberOfDigits = 3)
         }

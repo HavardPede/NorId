@@ -18,17 +18,24 @@ kotlin {
             useJUnitPlatform()
         }
     }
+    js {
+        useEsModules()
+        browser ()
+        binaries.executable()
+        generateTypeScriptDefinitions()
+    }
 
     sourceSets {
-        commonMain
+        commonMain {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
+            }
+        }
         commonTest {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(kotlin("test-junit5"))
-                implementation("org.junit.jupiter:junit-jupiter-api")
-                implementation("org.junit.jupiter:junit-jupiter-params")
-                runtimeOnly("org.junit.jupiter:junit-jupiter-engine")
             }
         }
+        jsMain
     }
 }
